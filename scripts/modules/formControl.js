@@ -70,7 +70,6 @@ export const modalFormControl = (cb) => {
     e.preventDefault();
 
     cb(input.value);
-    console.log('input.value: ', input.value);
     modalForm.reset();
     modal.remove();
   });

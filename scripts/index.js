@@ -13,20 +13,23 @@ const init = () => {
       'flex-column',
   );
 
-  // const userName = modalFormControl((user) => user);
-  const userName = prompt('Введите Ваше имя');
+  let userName;
 
-  console.log('userName: ', userName);
-  const {
-    list,
-    form,
-  } = renderToDo(app);
+  modalFormControl(user => {
+    userName = user;
 
-  renderTasks(userName, list);
-  formControl(userName, form, list);
-  deleteTask(userName, list);
-  completeTask(userName, list);
-  editTask(userName, list);
+    if (userName === undefined) {
+      return;
+    }
+
+    const {list, form} = renderToDo(app);
+
+    renderTasks(userName, list);
+    formControl(userName, form, list);
+    deleteTask(userName, list);
+    completeTask(userName, list);
+    editTask(userName, list);
+  });
 };
 
 init();
