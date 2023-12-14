@@ -1,5 +1,5 @@
-import {counter} from './counter.js';
-import {createRow} from './createElements.js';
+import {createModal, createRow} from './createElements.js';
+import {counter} from './handlers.js';
 import {addStorage, getStorage} from './serviceStorage.js';
 
 export const formControl = (key, form, list) => {
@@ -49,5 +49,29 @@ export const formControl = (key, form, list) => {
 
     form.reset();
     btnSubmit.disabled = true;
+  });
+};
+
+export const modalFormControl = (cb) => {
+  const {modal, modalForm} = createModal();
+
+  const input = modalForm.querySelector('.form-control');
+  const btnSubmit = modalForm.querySelector('.btn-primary');
+
+  input.addEventListener('input', () => {
+    if (input.value !== '') {
+      btnSubmit.disabled = false;
+    } else {
+      btnSubmit.disabled = true;
+    }
+  });
+
+  modalForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    cb(input.value);
+    console.log('input.value: ', input.value);
+    modalForm.reset();
+    modal.remove();
   });
 };

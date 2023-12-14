@@ -121,3 +121,41 @@ export const createRow = ({id, task, status, importance}) => {
   return tr;
 };
 
+export const createModal = () => {
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+  modal.style.display = 'block';
+  modal.style.backgroundColor = '#f9f9f9';
+
+  const modalDialog = document.createElement('div');
+  modalDialog.classList.add('modal-dialog');
+
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('modal-content');
+
+  const modalBody = document.createElement('div');
+  modalBody.classList.add('modal-body');
+
+  const modalForm = document.createElement('form');
+  modalForm.insertAdjacentHTML('beforeend', `
+    <h5 class="form__title">Введите имя пользователя</h5>
+    <div class="mb-3">
+      <label class="form-group">
+        <input class="form-control" tabindex="1" type="text" name="userName" placeholder="введите имя">
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary" disabled tabindex="2">Сохранить</button>
+  `);
+
+  modalBody.append(modalForm);
+  modalContent.append(modalBody);
+  modalDialog.append(modalContent);
+  modal.append(modalDialog);
+  modal.modalForm = modalForm;
+  document.body.append(modal);
+
+  return {
+    modal,
+    modalForm,
+  };
+};
