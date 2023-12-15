@@ -28,14 +28,30 @@ export const completeTask = (key, list) => {
       const row = target.closest('.task-row');
       const id = row.dataset.id;
       const importance = row.dataset.importance;
+      const status = row.dataset.status;
 
-      row.classList.remove(importance);
-      row.classList.add('table-success');
-      row.querySelector('.task').classList.add('text-decoration-line-through');
-      row.querySelector('.status').textContent = 'Завершено';
-      row.querySelector('.btn-secondary').disabled = true;
+      row.classList.toggle(importance);
+      row.classList.toggle('table-success');
+      row.querySelector('.task')
+          .classList.toggle('text-decoration-line-through');
 
-      updateStorage(key, id);
+      switch (status) {
+        case 'в процессе':
+          row.dataset.status = 'завершено';
+          row.querySelector('.status').textContent = 'завершено';
+          row.querySelector('.btn-success').textContent = 'Выполнено';
+          row.querySelector('.btn-secondary').disabled = true;
+          updateStorage(key, id);
+          break;
+
+        case 'завершено':
+          row.dataset.status = 'в процессе';
+          row.querySelector('.status').textContent = 'в процессе';
+          row.querySelector('.btn-success').textContent = 'Завершить';
+          row.querySelector('.btn-secondary').disabled = false;
+          updateStorage(key, id);
+          break;
+      }
     }
   });
 };
@@ -64,13 +80,21 @@ export const editTask = (key, list) => {
       const row = target.closest('.task-row');
       const id = row.dataset.id;
       const cell = row.querySelector('.task');
-      cell.contentEditable = true;
-      cell.focus();
+      let editableValue;
 
-      cell.addEventListener('blur', () => {
-        const editableValue = cell.textContent;
-        updateStorage(key, id, editableValue);
-      });
+      switch (target.textContent) {
+        case 'Редактировать':
+          target.textContent = 'Сохранить';
+          cell.contentEditable = true;
+          cell.focus();
+          break;
+        case 'Сохранить':
+          target.textContent = 'Редактировать';
+          cell.blur();
+          editableValue = cell.textContent;
+          updateStorage(key, id, editableValue);
+          break;
+      }
     }
   });
 };

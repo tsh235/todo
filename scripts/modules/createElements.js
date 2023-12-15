@@ -1,6 +1,6 @@
-export const createTitle = () => {
+export const createTitle = (key) => {
   const title = document.createElement('h3');
-  title.textContent = 'Todo App';
+  title.textContent = `Todo App ${key}`;
 
   return title;
 };
@@ -88,6 +88,7 @@ export const createRow = ({id, task, status, importance}) => {
   tr.classList.add('task-row', importance);
   tr.dataset.id = id;
   tr.dataset.importance = importance;
+  tr.dataset.status = status;
 
   const tdNum = document.createElement('td');
   tdNum.classList.add('number');
@@ -141,10 +142,11 @@ export const createModal = () => {
     <h5 class="form__title">Введите имя пользователя</h5>
     <div class="mb-3">
       <label class="form-group">
-        <input class="form-control" tabindex="1" type="text" name="userName" placeholder="введите имя">
+        <input class="form-control" tabindex="1"
+          type="text" name="userName" placeholder="введите имя">
       </label>
     </div>
-    <button type="submit" class="btn btn-primary" disabled tabindex="2">Сохранить</button>
+    <button type="submit" class="btn btn-primary" disabled>Сохранить</button>
   `);
 
   modalBody.append(modalForm);

@@ -22,7 +22,7 @@ const init = () => {
       return;
     }
 
-    const {list, form} = renderToDo(app);
+    const {list, form} = renderToDo(app, userName);
 
     renderTasks(userName, list);
     formControl(userName, form, list);

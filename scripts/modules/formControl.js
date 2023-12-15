@@ -36,8 +36,6 @@ export const formControl = (key, form, list) => {
         break;
     }
 
-    console.log('importance: ', importance);
-
     const id = +Math.random().toString().substring(2, 20);
     addStorage(key, task, id, importance);
 

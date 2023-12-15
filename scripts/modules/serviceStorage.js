@@ -25,7 +25,8 @@ export const updateStorage = (key, id, task) => {
     if (item.id === +id && task) {
       item.task === task ? item.task : item.task = task;
     } else if (item.id === +id && !task) {
-      item.status = 'Завершено';
+      item.status === 'завершено' ?
+        item.status = 'в процессе' : item.status = 'завершено';
     }
   });
 
